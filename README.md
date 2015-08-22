@@ -4,7 +4,7 @@
 
 ## Elements
 
-There are 6 elements in the game: Sacred, Evil, Fire, Ice, Venom and Normal (heh, sounds familiar?). Each element has weakness and enforcements from and for other elements. In the next table, you can check strengths and weaknesses
+There are 6 elements in the game: Sacred, Evil, Fire, Ice, Venom and Normal (heh, sounds familiar?). Each element has weakness and strengths against other elements. In the next table, you can check strengths and weaknesses. W = weak, VW = very weak, S = strong.
 
 ·  |  S|  E|  F|  I|  V|  M
 ---|---|---|---|---|---|---
