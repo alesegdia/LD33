@@ -162,14 +162,14 @@ public class GameCharacter {
 			case MGK:
 				// x1.5, x0.5
 				finalDmg = baseDmg * (
-						caster.stats.stats[Stats.MGKATK] / this.stats.stats[Stats.MGKDEF] * 1.2f +
-						caster.stats.stats[Stats.PHSATK] / this.stats.stats[Stats.PHSDEF] * 0.8f) / 2f;
+						caster.stats.stats[Stats.MGKATK] / this.stats.stats[Stats.MGKDEF] * 2f +
+						caster.stats.stats[Stats.PHSATK] / this.stats.stats[Stats.PHSDEF] * 0f) / 2f;
 				break;
 			case MASH:
 				// x1.5, x0.5
 				finalDmg = baseDmg * (
-						caster.stats.stats[Stats.MGKATK] / this.stats.stats[Stats.MGKDEF] * 0.8f +
-						caster.stats.stats[Stats.PHSATK] / this.stats.stats[Stats.PHSDEF] * 1.2f) / 2f;
+						caster.stats.stats[Stats.MGKATK] / this.stats.stats[Stats.MGKDEF] * 0f +
+						caster.stats.stats[Stats.PHSATK] / this.stats.stats[Stats.PHSDEF] * 2f) / 2f;
 				break;
 			case CUT:
 				// x1, x1
