@@ -81,7 +81,7 @@ public class GdxGame extends ApplicationAdapter {
 			public void init() {
 				player.currentHP = player.stats.stats[Stats.HP];
 				playerTurn = true;
-				enemy = GameCharacter.genChar("Wizard", 5);
+				enemy = GameCharacter.genChar("Wizard", (int) player.level);
 				addTurnStep(true);
 				addInfoState("A wizard got in your way!");
 			}
@@ -150,7 +150,7 @@ public class GdxGame extends ApplicationAdapter {
 
 			@Override
 			public void exit() {
-				enemy = GameCharacter.genChar("Wizard", 5);				
+				enemy = GameCharacter.genChar("Wizard", (int) player.level);				
 			}
 			
 		});
