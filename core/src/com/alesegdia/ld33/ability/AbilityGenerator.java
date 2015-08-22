@@ -37,14 +37,14 @@ public class AbilityGenerator {
 		attacks.add(new AttackModel("Razor ", AttackType.CUT, 3));
 		
 		protections.add(new ProtectionModel("Aura ", ProtectionType.AURA));
-		protections.add(new ProtectionModel("Chant ", ProtectionType.CHANT));
+		//protections.add(new ProtectionModel("Chant ", ProtectionType.CHANT));
 		protections.add(new ProtectionModel("Barrier ", ProtectionType.BARRIER));
 
 		hazards.add(new HazardModel("Growl ", HazardType.GROWL));
 		hazards.add(new HazardModel("Shade ", HazardType.SHADE));
-		hazards.add(new HazardModel("Haunt ", HazardType.HAUNT));
+		//hazards.add(new HazardModel("Haunt ", HazardType.HAUNT));
 		
-		//abilityModels.addAll(attacks);
+		abilityModels.addAll(attacks);
 		abilityModels.addAll(protections);
 		abilityModels.addAll(hazards);
 		

@@ -7,14 +7,18 @@ import com.badlogic.gdx.audio.Sound;
 
 public class Sfx {
 
-	public static Music music;
+	public static Music introMusic;
+	public static Music battleMusic;
 	public static Sound click;
 	
 	public static Sound[] noises = new Sound[5];
 	
 	public static void Initialize() {
-		music = Gdx.audio.newMusic(Gdx.files.internal("trashemon.mp3"));
-		music.setLooping(true);
+		battleMusic = Gdx.audio.newMusic(Gdx.files.internal("trashemon.mp3"));
+		battleMusic.setLooping(true);
+		
+		introMusic = Gdx.audio.newMusic(Gdx.files.internal("walk.mp3"));
+		introMusic.setLooping(true);
 		
 		click = Gdx.audio.newSound(Gdx.files.internal("click.wav"));
 		ids[0] = click.play(0);

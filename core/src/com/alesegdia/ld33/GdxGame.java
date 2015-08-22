@@ -20,6 +20,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.maps.tiled.TiledMap;
@@ -49,8 +50,15 @@ public class GdxGame extends ApplicationAdapter {
 	String helpMain =
 			"Show/Hide help - H\n" +
 			"Show/Hide stats - S\n" +
-			"Roll char - R";
+			"Roll char - R\n" +
+			"Start! - SPACE";
 	
+	String helpBattle = 
+			"Show/Hide help - H\n" +
+			"Show/Hide stats - S\n" +
+			"Check status effects - E" +
+			"Select option - SPACE";
+			
 	String help;
 	
 	public interface IState {
@@ -80,7 +88,7 @@ public class GdxGame extends ApplicationAdapter {
 
 			@Override
 			public boolean step() {
-				// TODO Auto-generated method stub
+				help = helpBattle;
 				return false;
 			}
 
@@ -124,6 +132,15 @@ public class GdxGame extends ApplicationAdapter {
 				statsOn = true;
 				player.currentHP = player.stats.stats[Stats.HP];
 				stateStack.clear();
+				help = helpMain;
+
+				Sfx.introMusic.stop();
+				
+				if( !Sfx.battleMusic.isPlaying() ) {
+					Sfx.battleMusic.setVolume(0.8f);
+					Sfx.battleMusic.play();
+				}
+
 			}
 
 			@Override
@@ -172,10 +189,12 @@ public class GdxGame extends ApplicationAdapter {
 		
 		srend = new ShapeRenderer();
 		srend.setAutoShapeType(true);
-
-		help = helpMain;
 		
-		addMainState();
+		addIntroState();
+		//addMainState();
+		
+		help = helpMain;
+
 		
 		currentState = stateStack.pop();
 		
@@ -186,9 +205,71 @@ public class GdxGame extends ApplicationAdapter {
 		xpBarColor = new Color(48f/255f, 96f/255f, 130f/255f,1f);
 		
 	}
+	
+	String storyText = "For years, humans have been keeping captive all individuals of"
+			+ " a mighty race of elementals, the Sefivms, in order to study"
+			+ " their control of nature. Sefivms' abilities have been weakened"
+			+ " with nullyfing orbs around their containers.\n\n"
+			+ "One day, container maintainers go on for a strike because they"
+			+ " claim not to be paid as they should.\n\n"
+			+ "What they didn't know is that they just started the beginning of"
+			+ " the end.";
+	
+	private void addIntroState() {
+		stateStack.add(new IState() {
+
+			
+			static final float TIME_OFFSET = 3f;
+			float timer = 0f;
+			TextureRegion logoFrame;
+			
+			@Override
+			public void init() {
+				helpOn = false;
+				logoFrame = Gfx.logoAnim.getKeyFrame(0);
+				if( !Sfx.introMusic.isPlaying() ) {
+					Sfx.introMusic.setVolume(0.8f);
+					Sfx.introMusic.play();
+				}
+			}
+
+			@Override
+			public boolean step() {
+				timer += Gdx.graphics.getDeltaTime();
+				if( timer > TIME_OFFSET ) {
+					logoFrame = Gfx.logoAnim.getKeyFrame(timer - TIME_OFFSET);
+				}
+				if( checkKey(Input.Keys.SPACE) ) {
+					addMainState();
+					return false;
+				}
+				return true;
+			}
+
+			@Override
+			public void render() {
+				int rw = logoFrame.getRegionWidth()*8;
+				int rh = logoFrame.getRegionHeight()*8;
+				
+				drawTextBox(10,10,800-20,480-20,storyText);
+				batch.begin();
+				batch.draw(logoFrame, 110, 490, rw, rh);
+				batch.end();
+			}
+
+			@Override
+			public void exit() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		
+		stateStack.peek().init();
+	}
 	int selectedAbility = 0;
 	private boolean statsOn = false;
-	private boolean helpOn = true;
+	private boolean helpOn = false;
 	
 	public void addDealDamageState(final GameCharacter gc, final float dmg) {
 		stateStack.push(new IState() {
@@ -724,10 +805,6 @@ public class GdxGame extends ApplicationAdapter {
 	@Override
 	public void render () {
 		
-		if( !Sfx.music.isPlaying() ) {
-			Sfx.music.setVolume(0.8f);
-			Sfx.music.play();
-		}
 		
 		Gdx.gl.glClearColor(133f / 255f, 149f / 255f, 161f / 255f, 1f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -773,7 +850,7 @@ public class GdxGame extends ApplicationAdapter {
 		currentState.render();
 
 		if( helpOn ) {
-			drawTextBox(30, 430, 500, 100, help);
+			drawTextBox(30, 430, 500, 130, help);
 		}
 		
 		if( statsOn ) {
