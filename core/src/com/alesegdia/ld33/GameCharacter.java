@@ -116,7 +116,15 @@ public class GameCharacter {
 				System.out.println("MOD: " + mod);
 				if( thisAffinity > 0 ) {
 					if( mod < 1 ) {
-						defMod += mod * thisAffinity;
+						float realAfi = thisAffinity;
+						if( this.barriers[i] != null ) {
+							realAfi += this.barriers[i].ai.strMod.power;
+						}
+						if( this.shades[i] != null ) {
+							realAfi -= this.shades[i].ai.strMod.power;
+						}
+						if( realAfi < 1 ) realAfi = 1;
+						defMod += mod * realAfi;
 					} else if( mod > 1 ) {
 						atkMod += mod * thisAffinity;
 					}
@@ -125,6 +133,15 @@ public class GameCharacter {
 				System.out.println("DEFMOD: " + defMod);
 				System.out.println("-----------");
 			}
+			
+			if( caster.growls[ai.element] != null ) {
+				casterAfi -= caster.growls[ai.element].ai.strMod.power;
+			}
+			if( caster.auras[ai.element] != null ) {
+				casterAfi += caster.auras[ai.element].ai.strMod.power;
+			}
+			
+			if( casterAfi < 1 ) casterAfi = 1;
 			float finalMod = casterAfi * atkMod - defMod;
 
 			System.out.println("CASTERAFI: " + casterAfi);
