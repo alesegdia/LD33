@@ -1,5 +1,7 @@
 # LD33
 
+Sefivm is a quick and dirty 1-vs-1-battle-only RPG made for the Ludum Dare 33.
+
 # Game rules
 
 ## Elements
