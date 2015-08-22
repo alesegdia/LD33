@@ -426,6 +426,52 @@ public class GdxGame extends ApplicationAdapter {
 		});
 	}
 	
+	private void addCheckStatusEffects(final GameCharacter gc) {
+		stateStack.add(new IState() {
+
+			@Override
+			public void init() {
+				List<StatusEffect> disabled = gc.checkStatusEffects();
+				for( StatusEffect se : disabled ) {
+					addInfoState("Effect of " + se.ai.onlyAbility() + " vanished from " + gc.name + "!");
+				}
+			}
+
+			@Override
+			public boolean step() {
+				// TODO Auto-generated method stub
+				return false;
+			}
+
+			@Override
+			public void render() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void exit() {
+				// TODO Auto-generated method stub
+				
+			}
+			
+		});
+		/*
+		List<StatusEffect> rm = new LinkedList<StatusEffect>();
+		for( StatusEffect se : gc.benefits ) {
+			se.turns--;
+			if( se.turns <= 0 ) {
+				rm.add(se);
+			}
+		}
+		
+		for( StatusEffect se : rm ) {
+			gc.benefits.remove(se);
+		}
+		*/
+	}
+
+	
 	private void addMidturnState() {
 		stateStack.push(new IState() {
 
@@ -462,7 +508,6 @@ public class GdxGame extends ApplicationAdapter {
 					addInfoState(active.name + " casted " + active.abilities[used].onlyAbility() + " on " + passive.name + "!");
 				} else if( ai.model instanceof AttackModel ) {
 					int dmg = passive.abilityReceived(active, ai);
-					//addCheckStatusEffects(active);
 					addDealDamageState( passive, dmg );
 					addInfoState(active.name + " dealt " + dmg + " damage to " + passive.name + "!");
 					addInfoState(active.name + " used " + active.abilities[used].onlyAbility() + "!");
@@ -470,6 +515,7 @@ public class GdxGame extends ApplicationAdapter {
 				if( isPlayer && active.abilities[used].uses <= 0 ) {
 					addFillSlotState(used);
 				}
+				addCheckStatusEffects(active);
 			}
 			
 			@Override
@@ -487,21 +533,6 @@ public class GdxGame extends ApplicationAdapter {
 				return false;
 			}
 
-			private void addCheckStatusEffects(GameCharacter gc) {
-				/*
-				List<StatusEffect> rm = new LinkedList<StatusEffect>();
-				for( StatusEffect se : gc.benefits ) {
-					se.turns--;
-					if( se.turns <= 0 ) {
-						rm.add(se);
-					}
-				}
-				
-				for( StatusEffect se : rm ) {
-					gc.benefits.remove(se);
-				}
-				*/
-			}
 
 			private void playRandomNoise() {
 				int nid = RNG.rng.nextInt(5);

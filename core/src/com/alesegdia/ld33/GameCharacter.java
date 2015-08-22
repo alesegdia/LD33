@@ -55,25 +55,30 @@ public class GameCharacter {
 		return ai;
 	}
 
-	public void checkList( StatusEffect[] list ) {
+	public List<StatusEffect> checkList( StatusEffect[] list ) {
+		List<StatusEffect> disabled = new ArrayList<StatusEffect>();
 		for( int i = 0; i < ElementType.NUM_ELEMENTS; i++ ) {
 			if( list[i] != null ) {
 				list[i].turns--;
 				if( list[i].turns <= 0 ) {
+					disabled.add(list[i]);
 					list[i] = null;
 				}
 			}
 		}
+		return disabled;
 	}
 	
-	public void checkStatusEffects() {
-		checkList(chants);
-		checkList(barriers);
-		checkList(auras);
+	public List<StatusEffect> checkStatusEffects() {
+		List<StatusEffect> ret = new ArrayList<StatusEffect>();
+		ret.addAll(checkList(chants));
+		ret.addAll(checkList(barriers));
+		ret.addAll(checkList(auras));
 		
-		checkList(haunts);
-		checkList(shades);
-		checkList(growls);
+		ret.addAll(checkList(haunts));
+		ret.addAll(checkList(shades));
+		ret.addAll(checkList(growls));
+		return ret;
 	}
 	
 	public int abilityReceived( GameCharacter caster, AbilityInstance ai ) {
