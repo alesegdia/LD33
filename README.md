@@ -6,14 +6,14 @@
 
 There are 6 elements in the game: Sacred, Evil, Fire, Ice, Venom and Normal (heh, sounds familiar?). Each element has weakness and enforcements from and for other elements. In the next table, you can check strengths and weaknesses
 
-· | S| E| F| I| V| M
---|--|--|--|--|--|--
- S|  |VW| W|  |  | S
- E| S| W|VW|  |  |  
- F|  | S|  |VW| W|  
- I| W|  | S|  |VW|  
- V|  |  |  | W| S|VW
- M|VW|  |  | S|  | W
+·  |  S|  E|  F|  I|  V|  M
+---|---|---|---|---|---|---
+ S |   |VW | W |   |   | S 
+ E | S | W |VW |   |   |   
+ F |   | S |   |VW | W |   
+ I | W |   | S |   |VW |   
+ V |   |   |   | W | S |VW 
+ M |VW |   |   | S |   | W      
 
  Game characters can have affinity to any element, none of them exclusive, so one character can have affinity even to all elements.
 
@@ -25,9 +25,9 @@ There are 3 kinds of abilities: **attacks**, **benefits** and **ailments**. Atta
 
 Each ability will have a modifier that will determine its uses and bias its strength. More strength, less uses and so.
 
-1 |     2 |    3 |     4 |     5
---|-------|------|-------|------
-  | Super | Mega | Ultra | Hyper
+1  |     2 |    3 |     4 |     5
+---|-------|------|-------|------
+   | Super | Mega | Ultra | Hyper
 
 
 ### Attacks
