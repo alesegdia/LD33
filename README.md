@@ -26,9 +26,10 @@ There are 3 kinds of abilities: **attacks**, **benefits** and **ailments**. Atta
 ### Modifiers
 
 Each ability will have a modifier that will determine its uses and bias its strength. More strength, less uses and so. When an ability is out of uses, you will be prompted to select a new one from 3 randomly generated. You can only get an element ability if you have affinity to that element.
-1  |     2 |    3 |     4 |     5
----|-------|------|-------|------
-   | Super | Mega | Ultra | Hyper
+
+1   |     2 |    3 |     4 |     5
+----|-------|------|-------|------
+    | Super | Mega | Ultra | Hyper
 
 
 ### Attacks
